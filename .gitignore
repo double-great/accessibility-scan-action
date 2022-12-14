@@ -1,0 +1,5 @@
+ai_scan_cli_output
+node_modules
+_accessibility-reports/index.html
+action.test.ts
+dist/__tests__

@@ -1,0 +1,23 @@
+name: accessibility-scan-action
+author: "@double-great"
+description: Scan a website for accessibility issues using axe-core rules engine.
+
+runs:
+  using: node16
+  main: dist/index.js
+
+inputs:
+  url:
+    description: The URL to start scanning.
+    required: true
+
+  maxUrls:
+    description: The number of urls to scan.
+    default: 100
+
+  baselineFile:
+    description: File path to baseline file.
+
+  outDir:
+    description: The output directory to save the accessibility report.
+    default: "_accessibility-reports"

@@ -1,0 +1,143 @@
+{
+  metadata: {
+    fileFormatVersion: '1',
+  },
+  results: [
+    {
+      cssSelector: 'li:nth-child(1) > a[href="#"]',
+      htmlSnippet: '<a href="#">About</a>',
+      rule: 'color-contrast',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'li:nth-child(2) > a[href="#"]',
+      htmlSnippet: '<a href="#">Academics</a>',
+      rule: 'color-contrast',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'li:nth-child(3) > a[href="#"]',
+      htmlSnippet: '<a href="#">Admissions</a>',
+      rule: 'color-contrast',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'li:nth-child(4) > a[href="#"]',
+      htmlSnippet: '<a href="#">Visitors</a>',
+      rule: 'color-contrast',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'html',
+      htmlSnippet: '<html>',
+      rule: 'html-has-lang',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'img[src$="captcha.png"]',
+      htmlSnippet: '<img src="images/captcha.png">',
+      rule: 'image-alt',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'img[src$="slide1.jpg"]',
+      htmlSnippet: '<img src="images/carousel/slide1.jpg">',
+      rule: 'image-alt',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="captcha"]',
+      htmlSnippet: '<input type="text" name="captcha">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="country"]',
+      htmlSnippet: '<input type="text" name="country">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="email"]',
+      htmlSnippet: '<input type="text" name="email">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_cs"]',
+      htmlSnippet: '<input type="checkbox" name="major_cs">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_econ"]',
+      htmlSnippet: '<input type="checkbox" name="major_econ">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_eng"]',
+      htmlSnippet: '<input type="checkbox" name="major_eng">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_phy"]',
+      htmlSnippet: '<input type="checkbox" name="major_phy">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_psy"]',
+      htmlSnippet: '<input type="checkbox" name="major_psy">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="major_sp"]',
+      htmlSnippet: '<input type="checkbox" name="major_sp">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'input[name="name"]',
+      htmlSnippet: '<input type="text" name="name">',
+      rule: 'label',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+  ],
+}
