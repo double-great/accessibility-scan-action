@@ -5,7 +5,7 @@ on:
   push:
 
 jobs:
-  document_action:
+  scan-action:
     runs-on: macOS-latest
     name: Scan for accessibility issues
     steps:

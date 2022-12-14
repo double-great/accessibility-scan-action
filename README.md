@@ -2,6 +2,9 @@
 
 Scan a website for accessibility issues using axe-core rules engine.
 
+> **Note**
+> This is still in development!
+
 ## Acknowledgements
 
 This is a fork of [https://github.com/microsoft/accessibility-insights-action](https://github.com/microsoft/accessibility-insights-action). While it's not a direct fork, we decided to build the action piece-by-piece to better understand the code.
