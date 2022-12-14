@@ -28,7 +28,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.0.0
+        uses: double-great/accessibility-scan-action@v0.1.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           # baselineFile: ${{ github.workspace }}/samples/site.baseline
