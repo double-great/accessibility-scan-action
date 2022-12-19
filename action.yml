@@ -1,6 +1,6 @@
 name: accessibility-scan-action
 author: "@double-great"
-description: Scan a website for accessibility issues using axe-core rules engine.
+description: Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights.
 
 runs:
   using: node16

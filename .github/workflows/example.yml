@@ -15,8 +15,10 @@ jobs:
       - name: Scan site
         uses: ./
         with:
+          # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
-          # baselineFile: ${{ github.workspace }}/samples/site.baseline
+          # Optional:
+          baselineFile: ${{ github.workspace }}/samples/site.baseline
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v3
