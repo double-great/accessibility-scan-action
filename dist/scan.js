@@ -52,6 +52,7 @@ let Scanner = class Scanner {
                     restart: true,
                     maxUrls: Number((0, core_1.getInput)("maxUrls")),
                     baselineFile,
+                    output: (0, core_1.getInput)("outDir") || "_accessibility-reports",
                 };
                 const crawlerParameters = this.crawlerParametersBuilder.build(scanArguments);
                 const baselineParameters = this.baselineOptionsBuilder.build(scanArguments);

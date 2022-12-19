@@ -1,6 +1,6 @@
 # accessibility-scan-action
 
-Scan a website for accessibility issues using axe-core rules engine.
+Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights.
 
 > **Note**
 > This is still in development!
@@ -33,8 +33,10 @@ jobs:
       - name: Scan site
         uses: double-great/accessibility-scan-action@v0.1.0
         with:
+          # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
-          # baselineFile: ${{ github.workspace }}/samples/site.baseline
+          # Optional:
+          baselineFile: ${{ github.workspace }}/samples/site.baseline
 
       - name: Upload report as artifact
         uses: actions/upload-artifact@v3
