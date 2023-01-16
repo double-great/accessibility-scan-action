@@ -12,7 +12,7 @@ jobs:
       - uses: maadhattah/combine-dependabot-prs@main
         with:
           branchPrefix: "dependabot"
-          combineBranchName: "combined-prs"
+          combineBranchName: combined-prs-${{ github.run_id }}
           ignoreLabel: "no-combine"
           baseBranch: "main"
           openPR: true
