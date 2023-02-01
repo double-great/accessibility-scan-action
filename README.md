@@ -46,11 +46,13 @@ jobs:
           path: ${{ github.workspace }}/_accessibility-reports/
 ```
 
-
 ## Action options
 
 - `url`: Required. The URL to start scanning.
+
 - `maxUrls`: The number of urls to scan. Default: `100`.
+
 - `baselineFile`: File path to baseline file.
+
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
 <!-- END GENERATED DOCUMENTATION -->
