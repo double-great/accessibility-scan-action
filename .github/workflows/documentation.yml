@@ -8,6 +8,9 @@ on:
       - "package.json"
       - "README.md"
 
+permissions:
+  contents: write
+
 jobs:
   document_action:
     runs-on: macOS-latest
