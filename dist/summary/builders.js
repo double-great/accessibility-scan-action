@@ -34,7 +34,7 @@ function baselineDetails(baselineInfo) {
     const shouldUpdate = shouldUpdateBaselineFile(baselineEvaluation);
     if (totalBaselineViolations > 0 || shouldUpdate) {
         return [
-            `- ${totalBaselineViolations} failure instance(s) in baseline, not shown.${shouldUpdate ? " You should update the baseline." : ""})`,
+            `- ${totalBaselineViolations} failure instance(s) in baseline, not shown.${shouldUpdate ? " You should update the baseline." : ""}`,
         ];
     }
     return [];

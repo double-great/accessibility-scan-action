@@ -39,7 +39,7 @@ export class Scanner {
       const baselineFile = getInput("baselineFile") || null;
       const inputUrls = getInput("inputUrls")
         ? getInput("inputUrls").split(",")
-        : null;
+        : [];
 
       scanArguments = {
         url: getInput("url"),

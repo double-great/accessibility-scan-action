@@ -47,7 +47,7 @@ let Scanner = class Scanner {
                 const baselineFile = (0, core_1.getInput)("baselineFile") || null;
                 const inputUrls = (0, core_1.getInput)("inputUrls")
                     ? (0, core_1.getInput)("inputUrls").split(",")
-                    : null;
+                    : [];
                 scanArguments = {
                     url: (0, core_1.getInput)("url"),
                     crawl: true,
