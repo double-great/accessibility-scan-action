@@ -21,3 +21,6 @@ inputs:
   outDir:
     description: The output directory to save the accessibility report.
     default: "_accessibility-reports"
+
+  inputUrls:
+    description: Additional URLs to scan, seperated by a comma.

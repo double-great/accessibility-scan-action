@@ -46,6 +46,9 @@ export class Scanner {
         maxUrls: Number(getInput("maxUrls")),
         baselineFile,
         output: getInput("outDir") || "_accessibility-reports",
+        inputUrls: getInput("inputUrls")
+          ? getInput("inputUrls").split(",")
+          : null,
       };
 
       const crawlerParameters =
