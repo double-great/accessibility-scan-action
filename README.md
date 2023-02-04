@@ -31,7 +31,7 @@ jobs:
         uses: actions/checkout@v3
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.1.0
+        uses: double-great/accessibility-scan-action@v0.2.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
