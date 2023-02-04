@@ -55,4 +55,6 @@ jobs:
 - `baselineFile`: File path to baseline file.
 
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
+
+- `inputUrls`: Additional URLs to scan, seperated by a comma.
 <!-- END GENERATED DOCUMENTATION -->

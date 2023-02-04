@@ -45,15 +45,10 @@ let Scanner = class Scanner {
             let scanArguments;
             try {
                 const baselineFile = (0, core_1.getInput)("baselineFile") || null;
-                scanArguments = {
-                    url: (0, core_1.getInput)("url"),
-                    crawl: true,
-                    singleWorker: true,
-                    restart: true,
-                    maxUrls: Number((0, core_1.getInput)("maxUrls")),
-                    baselineFile,
-                    output: (0, core_1.getInput)("outDir") || "_accessibility-reports",
-                };
+                const inputUrls = (0, core_1.getInput)("inputUrls")
+                    ? (0, core_1.getInput)("inputUrls").split(",")
+                    : [];
+                scanArguments = Object.assign({ url: (0, core_1.getInput)("url"), crawl: true, singleWorker: true, restart: true, maxUrls: Number((0, core_1.getInput)("maxUrls")), baselineFile, output: (0, core_1.getInput)("outDir") || "_accessibility-reports" }, (inputUrls.length > 0 && { inputUrls }));
                 const crawlerParameters = this.crawlerParametersBuilder.build(scanArguments);
                 const baselineParameters = this.baselineOptionsBuilder.build(scanArguments);
                 const scanStarted = new Date();
@@ -63,8 +58,14 @@ let Scanner = class Scanner {
                 this.reportGenerator.generateReport(combinedReportParameters);
                 yield this.baselineFileUpdater.updateBaseline(scanArguments, combinedScanResult.baselineEvaluation);
                 if (baselineFile !== null) {
-                    if ((_a = combinedScanResult.baselineEvaluation) === null || _a === void 0 ? void 0 : _a.suggestedBaselineUpdate) {
+                    if (((_a = combinedScanResult.baselineEvaluation) === null || _a === void 0 ? void 0 : _a.suggestedBaselineUpdate) &&
+                        inputUrls.length === 0) {
                         (0, core_1.setFailed)("The baseline file does not match scan results.");
+                        yield this.failRun();
+                    }
+                    if (inputUrls.length > 0 &&
+                        combinedReportParameters.results.urlResults.failedUrls > 0) {
+                        (0, core_1.setFailed)("Accessibility error(s) were found. The baseline file does not match scan results.");
                         yield this.failRun();
                     }
                 }

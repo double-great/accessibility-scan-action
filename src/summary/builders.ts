@@ -54,7 +54,7 @@ export function baselineDetails(baselineInfo: BaselineInfo): string[] {
     return [
       `- ${totalBaselineViolations} failure instance(s) in baseline, not shown.${
         shouldUpdate ? " You should update the baseline." : ""
-      })`,
+      }`,
     ];
   }
 

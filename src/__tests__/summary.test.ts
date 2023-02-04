@@ -73,7 +73,7 @@ To see all failures and scan details, [download the accessibility report](#artif
 ## Baseline summary
 
 - - No failures were detected by automatic scanning except those which exist in the baseline.
-- 17 failure instance(s) in baseline, not shown.)
+- 17 failure instance(s) in baseline, not shown.
 
 ## Scan summary
 
@@ -112,7 +112,7 @@ To see all failures and scan details, [download the accessibility report](#artif
 ## Baseline summary
 
 - - No failures were detected by automatic scanning except those which exist in the baseline.
-- 1 failure instance(s) in baseline, not shown.)
+- 1 failure instance(s) in baseline, not shown.
 
 ## Scan summary
 
@@ -169,7 +169,7 @@ To see all failures and scan details, [download the accessibility report](#artif
 ## Baseline summary
 
 - 0 failure instance(s) not in baseline
-- 1 failure instance(s) in baseline, not shown. You should update the baseline.)
+- 1 failure instance(s) in baseline, not shown. You should update the baseline.
 
 ## Scan summary
 
@@ -236,7 +236,7 @@ To see all failures and scan details, [download the accessibility report](#artif
     - (2) image-alt
     - (10) label
 - 0 failure instance(s) not in baseline
-- 17 failure instance(s) in baseline, not shown. You should update the baseline.)
+- 17 failure instance(s) in baseline, not shown. You should update the baseline.
 
 ## Scan summary
 

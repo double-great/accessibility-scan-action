@@ -37,6 +37,9 @@ export class Scanner {
     let scanArguments: ScanArguments;
     try {
       const baselineFile = getInput("baselineFile") || null;
+      const inputUrls = getInput("inputUrls")
+        ? getInput("inputUrls").split(",")
+        : [];
 
       scanArguments = {
         url: getInput("url"),
@@ -46,6 +49,7 @@ export class Scanner {
         maxUrls: Number(getInput("maxUrls")),
         baselineFile,
         output: getInput("outDir") || "_accessibility-reports",
+        ...(inputUrls.length > 0 && { inputUrls }),
       };
 
       const crawlerParameters =
@@ -75,8 +79,20 @@ export class Scanner {
       );
 
       if (baselineFile !== null) {
-        if (combinedScanResult.baselineEvaluation?.suggestedBaselineUpdate) {
+        if (
+          combinedScanResult.baselineEvaluation?.suggestedBaselineUpdate &&
+          inputUrls.length === 0
+        ) {
           setFailed("The baseline file does not match scan results.");
+          await this.failRun();
+        }
+        if (
+          inputUrls.length > 0 &&
+          combinedReportParameters.results.urlResults.failedUrls > 0
+        ) {
+          setFailed(
+            "Accessibility error(s) were found. The baseline file does not match scan results."
+          );
           await this.failRun();
         }
       } else {
