@@ -49,7 +49,7 @@ export class Scanner {
         maxUrls: Number(getInput("maxUrls")),
         baselineFile,
         output: getInput("outDir") || "_accessibility-reports",
-        inputUrls,
+        ...(inputUrls.length > 0 && { inputUrls }),
       };
 
       const crawlerParameters =
