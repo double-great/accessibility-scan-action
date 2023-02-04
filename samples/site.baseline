@@ -139,5 +139,29 @@
         'https://www.washington.edu/accesscomputing/AU/before.html',
       ],
     },
+    {
+      cssSelector: 'a[href$="cheatsheet.html"]',
+      htmlSnippet: '<a href="cheatsheet.html">click here</a>',
+      rule: 'link-in-text-block',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'p:nth-child(9) > a[href$="after.html"]',
+      htmlSnippet: '<a href="after.html">click here</a>',
+      rule: 'link-in-text-block',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
+    {
+      cssSelector: 'p:nth-child(9) > a[href$="info.html"]',
+      htmlSnippet: '<a href="info.html">click here</a>',
+      rule: 'link-in-text-block',
+      urls: [
+        'https://www.washington.edu/accesscomputing/AU/before.html',
+      ],
+    },
   ],
 }
