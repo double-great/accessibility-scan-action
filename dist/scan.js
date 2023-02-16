@@ -48,7 +48,7 @@ let Scanner = class Scanner {
                 const inputUrls = (0, core_1.getInput)("inputUrls")
                     ? (0, core_1.getInput)("inputUrls").split(",")
                     : [];
-                scanArguments = Object.assign({ url: (0, core_1.getInput)("url"), crawl: true, singleWorker: true, restart: true, maxUrls: Number((0, core_1.getInput)("maxUrls")), baselineFile, output: (0, core_1.getInput)("outDir") || "_accessibility-reports" }, (inputUrls.length > 0 && { inputUrls }));
+                scanArguments = Object.assign(Object.assign({ url: (0, core_1.getInput)("url"), crawl: true, singleWorker: true, restart: true, maxUrls: Number((0, core_1.getInput)("maxUrls")), baselineFile, output: (0, core_1.getInput)("outDir") || "_accessibility-reports" }, (inputUrls.length > 0 && { inputUrls })), { snapshot: (0, core_1.getBooleanInput)("snapshot") });
                 const crawlerParameters = this.crawlerParametersBuilder.build(scanArguments);
                 const baselineParameters = this.baselineOptionsBuilder.build(scanArguments);
                 const scanStarted = new Date();

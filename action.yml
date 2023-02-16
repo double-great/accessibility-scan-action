@@ -24,3 +24,7 @@ inputs:
 
   inputUrls:
     description: Additional URLs to scan, seperated by a comma.
+
+  snapshot:
+    default: false
+    description: "Take a screenshot of each page scanned and upload to artifact."

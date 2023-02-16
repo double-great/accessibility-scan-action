@@ -1,0 +1,28 @@
+name: Accessibility scan
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  scan-action:
+    runs-on: macOS-latest
+    name: Scan for accessibility issues
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Scan site
+        uses: ./
+        with:
+          url: "https://www.washington.edu/accesscomputing/AU/before.html"
+          snapshot: true
+
+      - name: Upload report and snapshots as artifact
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: "Accessibility report with snapshots"
+          path: |
+            ${{ github.workspace }}/_accessibility-reports/
+            ${{ github.workspace }}/*.jpg
