@@ -25,4 +25,4 @@ jobs:
         if: success() || failure()
         with:
           name: "Accessibility report"
-          path: ${{ github.workspace }}/_accessibility-reports/
+          path: ${{ github.workspace }}/_accessibility-reports/index.html

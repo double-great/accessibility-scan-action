@@ -24,5 +24,5 @@ jobs:
         with:
           name: "Accessibility report with snapshots"
           path: |
-            ${{ github.workspace }}/_accessibility-reports/
-            ${{ github.workspace }}/*.jpg
+            ${{ github.workspace }}/_accessibility-reports/index.html
+            ${{ github.workspace }}/**/*.jpeg
