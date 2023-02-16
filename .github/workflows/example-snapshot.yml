@@ -25,4 +25,4 @@ jobs:
           name: "Accessibility report with snapshots"
           path: |
             ${{ github.workspace }}/_accessibility-reports/index.html
-            ${{ github.workspace }}/key_value_stores/scan-results/*.jpeg
+            ${{ github.workspace }}/_accessibility-reports/key_value_stores/scan-results/*.jpeg
