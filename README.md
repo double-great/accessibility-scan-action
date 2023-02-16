@@ -46,6 +46,44 @@ jobs:
           path: ${{ github.workspace }}/_accessibility-reports/
 ```
 
+### Additional example workflows
+
+<details>
+<summary>Accessibility scan</summary>
+
+```yml
+name: Accessibility scan
+
+on:
+  workflow_dispatch:
+  push:
+
+jobs:
+  scan-action:
+    runs-on: macOS-latest
+    name: Scan for accessibility issues
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Scan site
+        uses: double-great/accessibility-scan-action@v0.2.0
+        with:
+          url: "https://www.washington.edu/accesscomputing/AU/before.html"
+          snapshot: true
+
+      - name: Upload report and snapshots as artifact
+        uses: actions/upload-artifact@v3
+        if: success() || failure()
+        with:
+          name: "Accessibility report with snapshots"
+          path: |
+            ${{ github.workspace }}/_accessibility-reports/
+            ${{ github.workspace }}/*.jpg
+```
+
+</details>
+
 ## Action options
 
 - `url`: Required. The URL to start scanning.
@@ -57,4 +95,6 @@ jobs:
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
 
 - `inputUrls`: Additional URLs to scan, seperated by a comma.
+
+- `snapshot`: Take a screenshot of each page scanned and upload to artifact.
 <!-- END GENERATED DOCUMENTATION -->
