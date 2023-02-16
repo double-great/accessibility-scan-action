@@ -43,16 +43,16 @@ jobs:
         if: success() || failure()
         with:
           name: "Accessibility report"
-          path: ${{ github.workspace }}/_accessibility-reports/
+          path: ${{ github.workspace }}/_accessibility-reports/index.html
 ```
 
 ### Additional example workflows
 
 <details>
-<summary>Accessibility scan</summary>
+<summary>Accessibility scan with snapshot</summary>
 
 ```yml
-name: Accessibility scan
+name: Accessibility scan with snapshot
 
 on:
   workflow_dispatch:
@@ -78,8 +78,8 @@ jobs:
         with:
           name: "Accessibility report with snapshots"
           path: |
-            ${{ github.workspace }}/_accessibility-reports/
-            ${{ github.workspace }}/*.jpg
+            ${{ github.workspace }}/_accessibility-reports/index.html
+            ${{ github.workspace }}/**/*.jpeg
 ```
 
 </details>
