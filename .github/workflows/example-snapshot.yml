@@ -1,4 +1,4 @@
-name: Accessibility scan
+name: Accessibility scan with snapshot
 
 on:
   workflow_dispatch:
