@@ -27,4 +27,4 @@ inputs:
 
   snapshot:
     default: false
-    description: "Take a screenshot of each page scanned and upload to artifact."
+    description: "Take a screenshot of each page scanned."
