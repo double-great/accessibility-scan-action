@@ -79,7 +79,7 @@ jobs:
           name: "Accessibility report with snapshots"
           path: |
             ${{ github.workspace }}/_accessibility-reports/index.html
-            ${{ github.workspace }}/**/*.jpeg
+            ${{ github.workspace }}/_accessibility-reports/key_value_stores/scan-results/*.jpeg
 ```
 
 </details>
@@ -96,5 +96,5 @@ jobs:
 
 - `inputUrls`: Additional URLs to scan, seperated by a comma.
 
-- `snapshot`: Take a screenshot of each page scanned and upload to artifact.
+- `snapshot`: Take a screenshot of each page scanned.
 <!-- END GENERATED DOCUMENTATION -->
