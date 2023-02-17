@@ -56,7 +56,6 @@ name: Accessibility scan with snapshot
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   scan-action:
@@ -88,7 +87,7 @@ jobs:
 
 - `url`: Required. The URL to start scanning.
 
-- `maxUrls`: The number of urls to scan. Default: `100`.
+- `maxUrls`: The number of URLs to scan. Default: `100`.
 
 - `baselineFile`: File path to baseline file.
 
