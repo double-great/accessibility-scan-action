@@ -11,7 +11,13 @@ import {
 import { CombinedReportParameters } from "accessibility-insights-report";
 import { AxeInfo } from "./axe-info";
 import { ConsolidatedReportGenerator } from "./report";
-import { setFailed, getInput, info, summary } from "@actions/core";
+import {
+  setFailed,
+  getInput,
+  info,
+  summary,
+  getBooleanInput,
+} from "@actions/core";
 import { markdownSummary } from "./summary";
 
 @injectable()
@@ -50,6 +56,7 @@ export class Scanner {
         baselineFile,
         output: getInput("outDir") || "_accessibility-reports",
         ...(inputUrls.length > 0 && { inputUrls }),
+        snapshot: getBooleanInput("snapshot"),
       };
 
       const crawlerParameters =

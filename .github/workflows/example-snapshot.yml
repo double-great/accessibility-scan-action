@@ -1,8 +1,7 @@
-name: Accessibility scan
+name: Accessibility scan with snapshot
 
 on:
   workflow_dispatch:
-  push:
 
 jobs:
   scan-action:
@@ -15,14 +14,14 @@ jobs:
       - name: Scan site
         uses: ./
         with:
-          # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
-          # Optional:
-          baselineFile: ${{ github.workspace }}/samples/site.baseline
+          snapshot: true
 
-      - name: Upload report as artifact
+      - name: Upload report and snapshots as artifact
         uses: actions/upload-artifact@v3
         if: success() || failure()
         with:
-          name: "Accessibility report"
-          path: ${{ github.workspace }}/_accessibility-reports/index.html
+          name: "Accessibility report with snapshots"
+          path: |
+            ${{ github.workspace }}/_accessibility-reports/index.html
+            ${{ github.workspace }}/_accessibility-reports/key_value_stores/scan-results/*.jpeg

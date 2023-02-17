@@ -12,7 +12,7 @@ inputs:
     required: true
 
   maxUrls:
-    description: The number of urls to scan.
+    description: The number of URLs to scan.
     default: 100
 
   baselineFile:
@@ -24,3 +24,7 @@ inputs:
 
   inputUrls:
     description: Additional URLs to scan, seperated by a comma.
+
+  snapshot:
+    default: false
+    description: "Take a screenshot of each page scanned."
