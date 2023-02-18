@@ -3,8 +3,29 @@ import { markdownSummary } from "../summary/index";
 import jsn from "./fixtures/jsnmrs";
 import wash from "./fixtures/wash";
 
+const defaultOptions: {
+  [key: string]: string;
+} = {
+  maxUrls: "100",
+  outDir: "_accessibility-reports",
+};
+
+jest.spyOn(core, "getBooleanInput").mockImplementation(() => false);
+
 describe("markdownSummary", () => {
+  beforeEach(() => {
+    jest
+      .spyOn(core, "getInput")
+      .mockImplementation((v) => defaultOptions[v] || undefined);
+  });
+
+  afterEach(() => {
+    jest.clearAllMocks();
+  });
+
   test("with passing checks", () => {
+    defaultOptions.url = "https://jasonmorris.com";
+
     const md = markdownSummary(jsn, undefined);
     expect(md).toMatchInlineSnapshot(`
 "# Accessibility scan: all applicable checks passed
@@ -23,6 +44,9 @@ This scan used [axe-core 4.5.2](https://github.com/dequelabs/axe-core/releases/t
   });
 
   test("with failed checks", () => {
+    defaultOptions.url =
+      "https://www.washington.edu/accesscomputing/AU/before.html";
+
     const md = markdownSummary(wash, undefined);
     expect(md).toMatchInlineSnapshot(`
 "# Accessibility scan
@@ -48,14 +72,9 @@ This scan used [axe-core 4.5.2](https://github.com/dequelabs/axe-core/releases/t
   });
 
   test("with failed checks, baseline", () => {
-    jest.spyOn(core, "getInput").mockImplementation((v) => {
-      switch (v) {
-        case "baselineFile":
-          return "website.baseline";
-        default:
-          return "";
-      }
-    });
+    defaultOptions.url =
+      "https://www.washington.edu/accesscomputing/AU/before.html";
+    defaultOptions.baselineFile = "website.baseline";
 
     const md = markdownSummary(wash, {
       suggestedBaselineUpdate: null,
@@ -87,14 +106,9 @@ This scan used [axe-core 4.5.2](https://github.com/dequelabs/axe-core/releases/t
   });
 
   test("with failed checks, baseline some", () => {
-    jest.spyOn(core, "getInput").mockImplementation((v) => {
-      switch (v) {
-        case "baselineFile":
-          return "website.baseline";
-        default:
-          return "";
-      }
-    });
+    defaultOptions.url =
+      "https://www.washington.edu/accesscomputing/AU/before.html";
+    defaultOptions.baselineFile = "website.baseline";
 
     const md = markdownSummary(wash, {
       suggestedBaselineUpdate: null,
@@ -126,14 +140,9 @@ This scan used [axe-core 4.5.2](https://github.com/dequelabs/axe-core/releases/t
   });
 
   test("with failed checks, baseline should update", () => {
-    jest.spyOn(core, "getInput").mockImplementation((v) => {
-      switch (v) {
-        case "baselineFile":
-          return "website.baseline";
-        default:
-          return "";
-      }
-    });
+    defaultOptions.url =
+      "https://www.washington.edu/accesscomputing/AU/before.html";
+    defaultOptions.baselineFile = "website.baseline";
 
     const md = markdownSummary(wash, {
       suggestedBaselineUpdate: {
@@ -183,14 +192,9 @@ This scan used [axe-core 4.5.2](https://github.com/dequelabs/axe-core/releases/t
   });
 
   test("with passing checks, baseline", () => {
-    jest.spyOn(core, "getInput").mockImplementation((v) => {
-      switch (v) {
-        case "baselineFile":
-          return "website.baseline";
-        default:
-          return "";
-      }
-    });
+    defaultOptions.url =
+      "https://www.washington.edu/accesscomputing/AU/before.html";
+    defaultOptions.baselineFile = "website.baseline";
 
     const md = markdownSummary(
       {
