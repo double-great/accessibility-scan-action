@@ -38,8 +38,6 @@ const process_1 = require("process");
 const nodePath = process_1.argv[0];
 const npmPath = nodePath.replace(/node$/, "npm");
 console.log("Installing dependencies...");
-console.log(`nodePath: ${nodePath}`);
-console.log(`npmPath: ${npmPath}`);
 execFileSync(nodePath, [npmPath, "ci", "--omit=dev"], {
     stdio: "inherit",
     cwd: __dirname,
