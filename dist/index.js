@@ -33,12 +33,12 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { execFileSync } = require("child_process");
+const child_process_1 = require("child_process");
 const process_1 = require("process");
 const nodePath = process_1.argv[0];
 const npmPath = nodePath.replace(/node$/, "npm");
 console.log("Installing dependencies...");
-execFileSync(nodePath, [npmPath, "ci", "--omit=dev"], {
+(0, child_process_1.execFileSync)(nodePath, [npmPath, "ci", "--omit=dev"], {
     stdio: "inherit",
     cwd: __dirname,
 });

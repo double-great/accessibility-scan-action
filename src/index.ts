@@ -1,5 +1,5 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { execFileSync } = require("child_process");
+import { execFileSync } from "child_process";
 import { argv } from "process";
 
 const nodePath = argv[0];
