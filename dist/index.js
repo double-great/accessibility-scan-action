@@ -1,3 +1,4 @@
+"use strict";
 var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
     if (k2 === undefined) k2 = k;
     var desc = Object.getOwnPropertyDescriptor(m, k);
@@ -30,12 +31,19 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { execSync } = require("child_process");
-execSync("npm ci --omit=dev", {
+const { execFileSync } = require("child_process");
+const process_1 = require("process");
+const nodePath = process_1.argv[0];
+const npmPath = nodePath.replace(/node$/, "npm");
+console.log("Installing dependencies...");
+console.log(`nodePath: ${nodePath}`);
+console.log(`npmPath: ${npmPath}`);
+execFileSync(nodePath, [npmPath, "ci", "--omit=dev"], {
     stdio: "inherit",
     cwd: __dirname,
 });
-Promise.resolve().then(() => __importStar(require("./action.js"))).then(({ action }) => __awaiter(this, void 0, void 0, function* () {
+Promise.resolve().then(() => __importStar(require("./action.js"))).then(({ action }) => __awaiter(void 0, void 0, void 0, function* () {
     yield action();
 }));

@@ -1,7 +1,15 @@
 // eslint-disable-next-line @typescript-eslint/no-var-requires
-const { execSync } = require("child_process");
+const { execFileSync } = require("child_process");
+import { argv } from "process";
 
-execSync("npm ci --omit=dev", {
+const nodePath = argv[0];
+const npmPath = nodePath.replace(/node$/, "npm");
+
+console.log("Installing dependencies...");
+console.log(`nodePath: ${nodePath}`);
+console.log(`npmPath: ${npmPath}`);
+
+execFileSync(nodePath, [npmPath, "ci", "--omit=dev"], {
   stdio: "inherit",
   cwd: __dirname,
 });
