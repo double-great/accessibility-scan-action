@@ -16,5 +16,6 @@
     "types": ["reflect-metadata", "jest"],
     "lib": ["es6"]
   },
-  "include": ["src/**/*.ts"]
+  "include": ["src/**/*.ts"],
+  "exclude": ["src/__tests__/*.ts"]
 }

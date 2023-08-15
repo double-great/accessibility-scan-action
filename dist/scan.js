@@ -28,7 +28,7 @@ const axe_info_1 = require("./axe-info");
 const report_1 = require("./report");
 const core_1 = require("@actions/core");
 const summary_1 = require("./summary");
-let Scanner = class Scanner {
+let Scanner = exports.Scanner = class Scanner {
     constructor(crawler, crawlerParametersBuilder, axeInfo, combinedReportDataConverter, reportGenerator, baselineOptionsBuilder, baselineFileUpdater) {
         this.crawler = crawler;
         this.crawlerParametersBuilder = crawlerParametersBuilder;
@@ -114,7 +114,7 @@ let Scanner = class Scanner {
         });
     }
 };
-Scanner = __decorate([
+exports.Scanner = Scanner = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(accessibility_insights_scan_1.AICrawler)),
     __param(1, (0, inversify_1.inject)(accessibility_insights_scan_1.CrawlerParametersBuilder)),
@@ -131,4 +131,3 @@ Scanner = __decorate([
         accessibility_insights_scan_1.BaselineOptionsBuilder,
         accessibility_insights_scan_1.BaselineFileUpdater])
 ], Scanner);
-exports.Scanner = Scanner;

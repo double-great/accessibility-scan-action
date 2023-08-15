@@ -19,7 +19,7 @@ const fs_1 = require("fs");
 exports.iocTypes = {
     ReportFactory: "ReportFactory",
 };
-let ConsolidatedReportGenerator = class ConsolidatedReportGenerator {
+let ConsolidatedReportGenerator = exports.ConsolidatedReportGenerator = class ConsolidatedReportGenerator {
     constructor(reporterFactoryFunc) {
         this.reporterFactoryFunc = reporterFactoryFunc;
     }
@@ -40,9 +40,8 @@ let ConsolidatedReportGenerator = class ConsolidatedReportGenerator {
         (0, fs_1.writeFileSync)(fileName, content);
     }
 };
-ConsolidatedReportGenerator = __decorate([
+exports.ConsolidatedReportGenerator = ConsolidatedReportGenerator = __decorate([
     (0, inversify_1.injectable)(),
     __param(0, (0, inversify_1.inject)(exports.iocTypes.ReportFactory)),
     __metadata("design:paramtypes", [Function])
 ], ConsolidatedReportGenerator);
-exports.ConsolidatedReportGenerator = ConsolidatedReportGenerator;

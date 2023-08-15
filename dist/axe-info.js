@@ -15,7 +15,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.AxeInfo = void 0;
 const axe_core_1 = __importDefault(require("axe-core"));
 const inversify_1 = require("inversify");
-let AxeInfo = class AxeInfo {
+let AxeInfo = exports.AxeInfo = class AxeInfo {
     constructor(axe = axe_core_1.default) {
         this.axe = axe;
     }
@@ -23,8 +23,7 @@ let AxeInfo = class AxeInfo {
         return this.axe.version;
     }
 };
-AxeInfo = __decorate([
+exports.AxeInfo = AxeInfo = __decorate([
     (0, inversify_1.injectable)(),
     __metadata("design:paramtypes", [Object])
 ], AxeInfo);
-exports.AxeInfo = AxeInfo;
