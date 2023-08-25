@@ -23,8 +23,8 @@ let AxeInfo = class AxeInfo {
         return this.axe.version;
     }
 };
-AxeInfo = __decorate([
+exports.AxeInfo = AxeInfo;
+exports.AxeInfo = AxeInfo = __decorate([
     (0, inversify_1.injectable)(),
     __metadata("design:paramtypes", [Object])
 ], AxeInfo);
-exports.AxeInfo = AxeInfo;
