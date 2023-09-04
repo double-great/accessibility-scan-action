@@ -1,6 +1,6 @@
 {
   "name": "@double-great/accessibility-scan-action",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights",
   "main": "dist/index.js",
   "scripts": {
