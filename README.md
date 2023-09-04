@@ -28,7 +28,7 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       # This action requires Node 20
       - uses: actions/setup-node@v3
@@ -36,7 +36,7 @@ jobs:
           node-version: 20
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.2.0
+        uses: double-great/accessibility-scan-action@v0.3.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
@@ -68,14 +68,14 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - uses: actions/setup-node@v3
         with:
           node-version: 20
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.2.0
+        uses: double-great/accessibility-scan-action@v0.3.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
