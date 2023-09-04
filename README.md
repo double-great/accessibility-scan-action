@@ -30,10 +30,10 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
-      # This action requires Node 16
+      # This action requires Node 20
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Scan site
         uses: double-great/accessibility-scan-action@v0.2.0
@@ -72,7 +72,7 @@ jobs:
 
       - uses: actions/setup-node@v3
         with:
-          node-version: 16
+          node-version: 20
 
       - name: Scan site
         uses: double-great/accessibility-scan-action@v0.2.0
