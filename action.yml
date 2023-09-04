@@ -3,7 +3,7 @@ author: "@double-great"
 description: Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights.
 
 runs:
-  using: node16
+  using: node20
   main: dist/index.js
 
 inputs:
