@@ -44,7 +44,7 @@ jobs:
           baselineFile: ${{ github.workspace }}/samples/site.baseline
 
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: "Accessibility report"
@@ -81,7 +81,7 @@ jobs:
           snapshot: true
 
       - name: Upload report and snapshots as artifact
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: "Accessibility report with snapshots"
