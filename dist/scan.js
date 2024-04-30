@@ -40,8 +40,8 @@ let Scanner = class Scanner {
         this.scanSucceeded = true;
     }
     invokeScan() {
-        var _a;
         return __awaiter(this, void 0, void 0, function* () {
+            var _a;
             let scanArguments;
             try {
                 const baselineFile = (0, core_1.getInput)("baselineFile") || null;

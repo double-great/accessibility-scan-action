@@ -36,6 +36,6 @@ execSync("npm ci --omit=dev", {
     stdio: "inherit",
     cwd: __dirname,
 });
-Promise.resolve().then(() => __importStar(require("./action.js"))).then(({ action }) => __awaiter(this, void 0, void 0, function* () {
+Promise.resolve().then(() => __importStar(require("./action.js"))).then((_a) => __awaiter(this, [_a], void 0, function* ({ action }) {
     yield action();
 }));
