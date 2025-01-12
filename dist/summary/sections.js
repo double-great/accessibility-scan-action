@@ -1,6 +1,10 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.sectionFooter = exports.sectionBaseline = exports.sectionFailureSummary = exports.sectionSummary = exports.sectionHeading = void 0;
+exports.sectionHeading = sectionHeading;
+exports.sectionSummary = sectionSummary;
+exports.sectionFailureSummary = sectionFailureSummary;
+exports.sectionBaseline = sectionBaseline;
+exports.sectionFooter = sectionFooter;
 const builders_1 = require("./builders");
 function sectionHeading(failed, baselinedEnabled, combinedReportResult) {
     return `${failed.length === 0 && !baselinedEnabled
@@ -9,7 +13,6 @@ function sectionHeading(failed, baselinedEnabled, combinedReportResult) {
 
 ${(0, builders_1.downloadArtifactsWithLink)(combinedReportResult)}`;
 }
-exports.sectionHeading = sectionHeading;
 function sectionSummary(combinedReportResult, baselinedEnabled) {
     const { results: { resultsByRule: { passed, notApplicable, failed }, urlResults: { passedUrls, unscannableUrls, failedUrls }, }, } = combinedReportResult;
     return `## Scan summary
@@ -17,7 +20,6 @@ function sectionSummary(combinedReportResult, baselinedEnabled) {
 ${(0, builders_1.urlsListItem)(passedUrls, unscannableUrls, failedUrls, baselinedEnabled)}
 ${(0, builders_1.rulesListItem)(passed.length, notApplicable.length, failed.length, baselinedEnabled)}`;
 }
-exports.sectionSummary = sectionSummary;
 function sectionFailureSummary({ results: { resultsByRule: { failed }, }, }, baselinedEnabled) {
     if (failed.length === 0 || baselinedEnabled) {
         return undefined;
@@ -27,7 +29,6 @@ function sectionFailureSummary({ results: { resultsByRule: { failed }, }, }, bas
   
 ${failedRulesList.join("\n")}`;
 }
-exports.sectionFailureSummary = sectionFailureSummary;
 function sectionBaseline(baselinedEnabled, baselineInfo, combinedReportResult) {
     if (!baselinedEnabled)
         return "";
@@ -42,10 +43,8 @@ function sectionBaseline(baselinedEnabled, baselineInfo, combinedReportResult) {
 
 ${content}`;
 }
-exports.sectionBaseline = sectionBaseline;
 function sectionFooter({ axeVersion, userAgent, browserResolution, }) {
     return `---
 
 This scan used ${(0, builders_1.link)(`https://github.com/dequelabs/axe-core/releases/tag/v${axeVersion}`, `axe-core ${axeVersion}`)} with ${userAgent} and browser resolution ${browserResolution}.`;
 }
-exports.sectionFooter = sectionFooter;

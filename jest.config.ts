@@ -1,4 +1,6 @@
-module.exports = {
+import type { Config } from "jest";
+
+const config: Config = {
   clearMocks: true,
   transform: {
     "^.+\\.(tsx?)$": "ts-jest",
@@ -9,3 +11,5 @@ module.exports = {
     "<rootDir>/src/__tests__/action.test.ts",
   ],
 };
+
+export default config;

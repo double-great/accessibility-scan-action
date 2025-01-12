@@ -1,6 +1,6 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.markdownSummary = void 0;
+exports.markdownSummary = markdownSummary;
 const builders_1 = require("./builders");
 const sections_1 = require("./sections");
 function markdownSummary(combinedReportResult, baselineEvaluation) {
@@ -19,4 +19,3 @@ function markdownSummary(combinedReportResult, baselineEvaluation) {
         .filter((f) => f)
         .join("\n\n");
 }
-exports.markdownSummary = markdownSummary;

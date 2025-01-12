@@ -1,6 +1,13 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.hasFailures = exports.baselineHasFailures = exports.downloadArtifactsWithLink = exports.failedRuleListItemBaseline = exports.getRuleDescription = exports.getFailedRulesListWithNoBaseline = exports.getNewFailuresList = exports.getFailedRulesList = exports.getFailureInstances = exports.getTotalFailureInstancesFromResults = exports.failureDetailsBaseline = exports.fixedFailureDetails = exports.failedRuleListItem = exports.rulesListItem = exports.urlsListItem = exports.hasFixedFailureResults = exports.shouldUpdateBaselineFile = exports.baselineDetails = exports.headingWithMessage = exports.listItem = exports.link = exports.getBaselineInfo = void 0;
+exports.hasFailures = exports.baselineHasFailures = exports.failedRuleListItemBaseline = exports.getRuleDescription = exports.getFailedRulesListWithNoBaseline = exports.getNewFailuresList = exports.getFailedRulesList = exports.getFailureInstances = exports.getTotalFailureInstancesFromResults = exports.failureDetailsBaseline = exports.failedRuleListItem = exports.rulesListItem = exports.urlsListItem = exports.listItem = exports.link = void 0;
+exports.getBaselineInfo = getBaselineInfo;
+exports.headingWithMessage = headingWithMessage;
+exports.baselineDetails = baselineDetails;
+exports.shouldUpdateBaselineFile = shouldUpdateBaselineFile;
+exports.hasFixedFailureResults = hasFixedFailureResults;
+exports.fixedFailureDetails = fixedFailureDetails;
+exports.downloadArtifactsWithLink = downloadArtifactsWithLink;
 const core_1 = require("@actions/core");
 function getBaselineInfo(baselineEvaluation) {
     const baselineFileName = (0, core_1.getInput)("baselineFile") || null;
@@ -9,7 +16,6 @@ function getBaselineInfo(baselineEvaluation) {
     }
     return { baselineFileName, baselineEvaluation };
 }
-exports.getBaselineInfo = getBaselineInfo;
 const link = (href, text) => `[${text}](${href})`;
 exports.link = link;
 const listItem = (text) => `- ${text}`;
@@ -17,7 +23,6 @@ exports.listItem = listItem;
 function headingWithMessage(message) {
     return `# Accessibility scan${message ? `: ${message}` : ""}`;
 }
-exports.headingWithMessage = headingWithMessage;
 function baselineDetails(baselineInfo) {
     const { baselineFileName, baselineEvaluation } = baselineInfo;
     if (baselineFileName === undefined) {
@@ -39,13 +44,11 @@ function baselineDetails(baselineInfo) {
     }
     return [];
 }
-exports.baselineDetails = baselineDetails;
 function shouldUpdateBaselineFile(baselineEvaluation) {
     return baselineEvaluation && baselineEvaluation.suggestedBaselineUpdate
         ? true
         : false;
 }
-exports.shouldUpdateBaselineFile = shouldUpdateBaselineFile;
 function hasFixedFailureResults(baselineEvaluation) {
     if (baselineEvaluation && baselineEvaluation.fixedViolationsByRule) {
         for (const _ in baselineEvaluation.fixedViolationsByRule) {
@@ -54,7 +57,6 @@ function hasFixedFailureResults(baselineEvaluation) {
     }
     return false;
 }
-exports.hasFixedFailureResults = hasFixedFailureResults;
 const urlsListItem = (passedUrls, unscannableUrls, failedUrls, baselinedEnabled = false) => {
     const failedUrlsSummary = `${failedUrls} URL(s) failed, `;
     const passedAndUnscannableUrlsSummary = `${passedUrls} URL(s) passed, and ${unscannableUrls} were not scannable`;
@@ -94,7 +96,6 @@ function fixedFailureDetails({ baselineEvaluation, }) {
 ${fixedFailureInstanceLines.join("\n")}`,
     ];
 }
-exports.fixedFailureDetails = fixedFailureDetails;
 const failureDetailsBaseline = (combinedReportResult, baselineInfo) => {
     if ((0, exports.hasFailures)(combinedReportResult, baselineInfo.baselineEvaluation) ||
         shouldUpdateBaselineFile(baselineInfo.baselineEvaluation)) {
@@ -168,7 +169,6 @@ function downloadArtifactsWithLink(combinedReportResult, baselineEvaluation) {
         `To see ${details}, ${(0, exports.link)("#artifacts", "download the accessibility report")}.`,
     ];
 }
-exports.downloadArtifactsWithLink = downloadArtifactsWithLink;
 const baselineHasFailures = (baselineEvaluation) => {
     return ((baselineEvaluation === null || baselineEvaluation === void 0 ? void 0 : baselineEvaluation.totalBaselineViolations) &&
         (baselineEvaluation === null || baselineEvaluation === void 0 ? void 0 : baselineEvaluation.totalBaselineViolations) > 0);
