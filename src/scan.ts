@@ -1,16 +1,18 @@
 import { inject, injectable } from "inversify";
-import {
+import pkg, {
+  CombinedScanResult,
+  ScanArguments,
+} from "accessibility-insights-scan";
+const {
+  CrawlerParametersBuilder,
   AICombinedReportDataConverter,
   AICrawler,
   BaselineFileUpdater,
   BaselineOptionsBuilder,
-  CombinedScanResult,
-  CrawlerParametersBuilder,
-  ScanArguments,
-} from "accessibility-insights-scan";
+} = pkg;
 import { CombinedReportParameters } from "accessibility-insights-report";
-import { AxeInfo } from "./axe-info";
-import { ConsolidatedReportGenerator } from "./report";
+import { AxeInfo } from "./axe-info.js";
+import { ConsolidatedReportGenerator } from "./report.js";
 import {
   setFailed,
   getInput,
@@ -18,7 +20,7 @@ import {
   summary,
   getBooleanInput,
 } from "@actions/core";
-import { markdownSummary } from "./summary";
+import { markdownSummary } from "./summary/index.js";
 
 @injectable()
 export class Scanner {
@@ -156,4 +158,33 @@ export class Scanner {
   public async scan(): Promise<boolean> {
     return await this.invokeScan();
   }
+}
+
+interface AICrawler {
+  crawl(
+    crawlerParameters: any,
+    baselineParameters: any
+  ): Promise<CombinedScanResult>;
+}
+
+interface CrawlerParametersBuilder {
+  build(scanArguments: ScanArguments): any;
+}
+
+interface BaselineOptionsBuilder {
+  build(scanArguments: ScanArguments): any;
+}
+
+interface AICombinedReportDataConverter {
+  convertCrawlingResults(
+    combinedAxeResults: any,
+    scanResultData: any
+  ): CombinedReportParameters;
+}
+
+interface BaselineFileUpdater {
+  updateBaseline(
+    scanArguments: ScanArguments,
+    baselineEvaluation: any
+  ): Promise<void>;
 }

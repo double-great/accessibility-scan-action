@@ -1,9 +1,11 @@
 import "reflect-metadata";
 
 import * as inversify from "inversify";
-import { Scanner } from "./scan";
-import { setupCliContainer } from "accessibility-insights-scan";
-import { reporterFactory } from "accessibility-insights-report";
+import { Scanner } from "./scan.js";
+import scanPkg from "accessibility-insights-scan";
+const { setupCliContainer } = scanPkg;
+import pkg from "accessibility-insights-report";
+const { reporterFactory } = pkg;
 import { setFailed } from "@actions/core";
 
 export const iocTypes = {
