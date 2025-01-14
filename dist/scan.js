@@ -10,6 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { inject, injectable } from "inversify";
 import pkg from "accessibility-insights-scan";
 const { CrawlerParametersBuilder, AICombinedReportDataConverter, AICrawler, BaselineFileUpdater, BaselineOptionsBuilder, } = pkg;
