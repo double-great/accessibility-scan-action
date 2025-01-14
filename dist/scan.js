@@ -1,4 +1,3 @@
-"use strict";
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -11,24 +10,23 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
-    function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
-    return new (P || (P = Promise))(function (resolve, reject) {
-        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
-        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
-        function step(result) { result.done ? resolve(result.value) : adopt(result.value).then(fulfilled, rejected); }
-        step((generator = generator.apply(thisArg, _arguments || [])).next());
-    });
-};
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.Scanner = void 0;
-const inversify_1 = require("inversify");
-const accessibility_insights_scan_1 = require("accessibility-insights-scan");
-const axe_info_1 = require("./axe-info");
-const report_1 = require("./report");
-const core_1 = require("@actions/core");
-const summary_1 = require("./summary");
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { inject, injectable } from "inversify";
+import pkg from "accessibility-insights-scan";
+const { CrawlerParametersBuilder, AICombinedReportDataConverter, AICrawler, BaselineFileUpdater, BaselineOptionsBuilder, } = pkg;
+import { AxeInfo } from "./axe-info.js";
+import { ConsolidatedReportGenerator } from "./report.js";
+import { setFailed, getInput, info, summary, getBooleanInput, } from "@actions/core";
+import { markdownSummary } from "./summary/index.js";
 let Scanner = class Scanner {
+    crawler;
+    crawlerParametersBuilder;
+    axeInfo;
+    combinedReportDataConverter;
+    reportGenerator;
+    baselineOptionsBuilder;
+    baselineFileUpdater;
+    scanSucceeded = true;
     constructor(crawler, crawlerParametersBuilder, axeInfo, combinedReportDataConverter, reportGenerator, baselineOptionsBuilder, baselineFileUpdater) {
         this.crawler = crawler;
         this.crawlerParametersBuilder = crawlerParametersBuilder;
@@ -37,66 +35,69 @@ let Scanner = class Scanner {
         this.reportGenerator = reportGenerator;
         this.baselineOptionsBuilder = baselineOptionsBuilder;
         this.baselineFileUpdater = baselineFileUpdater;
-        this.scanSucceeded = true;
     }
-    invokeScan() {
-        return __awaiter(this, void 0, void 0, function* () {
-            var _a;
-            let scanArguments;
-            try {
-                const baselineFile = (0, core_1.getInput)("baselineFile") || null;
-                const inputUrls = (0, core_1.getInput)("inputUrls")
-                    ? (0, core_1.getInput)("inputUrls").split(",")
-                    : [];
-                scanArguments = Object.assign(Object.assign({ url: (0, core_1.getInput)("url"), crawl: true, singleWorker: true, restart: true, maxUrls: Number((0, core_1.getInput)("maxUrls")), baselineFile, output: (0, core_1.getInput)("outDir") || "_accessibility-reports" }, (inputUrls.length > 0 && { inputUrls })), { snapshot: (0, core_1.getBooleanInput)("snapshot") });
-                const crawlerParameters = this.crawlerParametersBuilder.build(scanArguments);
-                const baselineParameters = this.baselineOptionsBuilder.build(scanArguments);
-                const scanStarted = new Date();
-                const combinedScanResult = yield this.crawler.crawl(crawlerParameters, baselineParameters);
-                const scanEnded = new Date();
-                const combinedReportParameters = this.getCombinedReportParameters(combinedScanResult, scanStarted, scanEnded);
-                this.reportGenerator.generateReport(combinedReportParameters);
-                yield this.baselineFileUpdater.updateBaseline(scanArguments, combinedScanResult.baselineEvaluation);
-                if (baselineFile !== null) {
-                    if (((_a = combinedScanResult.baselineEvaluation) === null || _a === void 0 ? void 0 : _a.suggestedBaselineUpdate) &&
-                        inputUrls.length === 0) {
-                        (0, core_1.setFailed)("The baseline file does not match scan results.");
-                        yield this.failRun();
-                    }
-                    if (inputUrls.length > 0 &&
-                        combinedReportParameters.results.urlResults.failedUrls > 0) {
-                        (0, core_1.setFailed)("Accessibility error(s) were found. The baseline file does not match scan results.");
-                        yield this.failRun();
-                    }
+    async invokeScan() {
+        let scanArguments;
+        try {
+            const baselineFile = getInput("baselineFile") || null;
+            const inputUrls = getInput("inputUrls")
+                ? getInput("inputUrls").split(",")
+                : [];
+            scanArguments = {
+                url: getInput("url"),
+                crawl: true,
+                singleWorker: true,
+                restart: true,
+                maxUrls: Number(getInput("maxUrls")),
+                baselineFile,
+                output: getInput("outDir") || "_accessibility-reports",
+                ...(inputUrls.length > 0 && { inputUrls }),
+                snapshot: getBooleanInput("snapshot"),
+            };
+            const crawlerParameters = this.crawlerParametersBuilder.build(scanArguments);
+            const baselineParameters = this.baselineOptionsBuilder.build(scanArguments);
+            const scanStarted = new Date();
+            const combinedScanResult = await this.crawler.crawl(crawlerParameters, baselineParameters);
+            const scanEnded = new Date();
+            const combinedReportParameters = this.getCombinedReportParameters(combinedScanResult, scanStarted, scanEnded);
+            this.reportGenerator.generateReport(combinedReportParameters);
+            await this.baselineFileUpdater.updateBaseline(scanArguments, combinedScanResult.baselineEvaluation);
+            if (baselineFile !== null) {
+                if (combinedScanResult.baselineEvaluation?.suggestedBaselineUpdate &&
+                    inputUrls.length === 0) {
+                    setFailed("The baseline file does not match scan results.");
+                    await this.failRun();
                 }
-                else {
-                    if (combinedReportParameters.results.urlResults.failedUrls > 0) {
-                        (0, core_1.setFailed)("Accessibility error(s) were found");
-                        yield this.failRun();
-                    }
+                if (inputUrls.length > 0 &&
+                    combinedReportParameters.results.urlResults.failedUrls > 0) {
+                    setFailed("Accessibility error(s) were found. The baseline file does not match scan results.");
+                    await this.failRun();
                 }
-                const reportMarkdown = (0, summary_1.markdownSummary)(combinedReportParameters, combinedScanResult.baselineEvaluation);
-                yield core_1.summary.addRaw(reportMarkdown).write();
-                return Promise.resolve(this.scanSucceeded);
             }
-            catch (error) {
-                (0, core_1.setFailed)(error);
+            else {
+                if (combinedReportParameters.results.urlResults.failedUrls > 0) {
+                    setFailed("Accessibility error(s) were found");
+                    await this.failRun();
+                }
             }
-            finally {
-                (0, core_1.info)(`Accessibility scanning of URL ${scanArguments === null || scanArguments === void 0 ? void 0 : scanArguments.url} completed`);
-            }
-            return Promise.resolve(false);
-        });
+            const reportMarkdown = markdownSummary(combinedReportParameters, combinedScanResult.baselineEvaluation);
+            await summary.addRaw(reportMarkdown).write();
+            return Promise.resolve(this.scanSucceeded);
+        }
+        catch (error) {
+            setFailed(error);
+        }
+        finally {
+            info(`Accessibility scanning of URL ${scanArguments?.url} completed`);
+        }
+        return Promise.resolve(false);
     }
-    failRun() {
-        return __awaiter(this, void 0, void 0, function* () {
-            this.scanSucceeded = false;
-        });
+    async failRun() {
+        this.scanSucceeded = false;
     }
     getCombinedReportParameters(combinedScanResult, scanStarted, scanEnded) {
-        var _a;
         const scanResultData = {
-            baseUrl: (_a = combinedScanResult.scanMetadata.baseUrl) !== null && _a !== void 0 ? _a : "n/a",
+            baseUrl: combinedScanResult.scanMetadata.baseUrl ?? "n/a",
             basePageTitle: combinedScanResult.scanMetadata.basePageTitle,
             scanEngineName: "accessibility-scan-action",
             axeCoreVersion: this.axeInfo.version,
@@ -108,27 +109,25 @@ let Scanner = class Scanner {
         };
         return this.combinedReportDataConverter.convertCrawlingResults(combinedScanResult.combinedAxeResults, scanResultData);
     }
-    scan() {
-        return __awaiter(this, void 0, void 0, function* () {
-            return yield this.invokeScan();
-        });
+    async scan() {
+        return await this.invokeScan();
     }
 };
-exports.Scanner = Scanner;
-exports.Scanner = Scanner = __decorate([
-    (0, inversify_1.injectable)(),
-    __param(0, (0, inversify_1.inject)(accessibility_insights_scan_1.AICrawler)),
-    __param(1, (0, inversify_1.inject)(accessibility_insights_scan_1.CrawlerParametersBuilder)),
-    __param(2, (0, inversify_1.inject)(axe_info_1.AxeInfo)),
-    __param(3, (0, inversify_1.inject)(accessibility_insights_scan_1.AICombinedReportDataConverter)),
-    __param(4, (0, inversify_1.inject)(report_1.ConsolidatedReportGenerator)),
-    __param(5, (0, inversify_1.inject)(accessibility_insights_scan_1.BaselineOptionsBuilder)),
-    __param(6, (0, inversify_1.inject)(accessibility_insights_scan_1.BaselineFileUpdater)),
-    __metadata("design:paramtypes", [accessibility_insights_scan_1.AICrawler,
-        accessibility_insights_scan_1.CrawlerParametersBuilder,
-        axe_info_1.AxeInfo,
-        accessibility_insights_scan_1.AICombinedReportDataConverter,
-        report_1.ConsolidatedReportGenerator,
-        accessibility_insights_scan_1.BaselineOptionsBuilder,
-        accessibility_insights_scan_1.BaselineFileUpdater])
+Scanner = __decorate([
+    injectable(),
+    __param(0, inject(AICrawler)),
+    __param(1, inject(CrawlerParametersBuilder)),
+    __param(2, inject(AxeInfo)),
+    __param(3, inject(AICombinedReportDataConverter)),
+    __param(4, inject(ConsolidatedReportGenerator)),
+    __param(5, inject(BaselineOptionsBuilder)),
+    __param(6, inject(BaselineFileUpdater)),
+    __metadata("design:paramtypes", [AICrawler,
+        CrawlerParametersBuilder,
+        AxeInfo,
+        AICombinedReportDataConverter,
+        ConsolidatedReportGenerator,
+        BaselineOptionsBuilder,
+        BaselineFileUpdater])
 ], Scanner);
+export { Scanner };

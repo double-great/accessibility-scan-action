@@ -6,7 +6,7 @@ on:
 
 jobs:
   scan-action:
-    runs-on: macOS-latest
+    runs-on: ubuntu-latest
     name: Scan for accessibility issues
     steps:
       - name: Checkout

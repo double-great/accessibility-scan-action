@@ -13,7 +13,7 @@ import {
   link,
   rulesListItem,
   urlsListItem,
-} from "./builders";
+} from "./builders.js";
 
 export function sectionHeading(
   failed: FailuresGroup[],
