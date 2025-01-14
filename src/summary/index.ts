@@ -1,13 +1,13 @@
 import { CombinedReportParameters } from "accessibility-insights-report";
 import { BaselineEvaluation } from "accessibility-insights-scan";
-import { getBaselineInfo } from "./builders";
+import { getBaselineInfo } from "./builders.js";
 import {
   sectionBaseline,
   sectionFailureSummary,
   sectionHeading,
   sectionSummary,
   sectionFooter,
-} from "./sections";
+} from "./sections.js";
 
 export function markdownSummary(
   combinedReportResult: CombinedReportParameters,

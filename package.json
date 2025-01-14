@@ -3,6 +3,7 @@
   "version": "0.3.0",
   "description": "Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights",
   "main": "dist/index.js",
+  "type": "module",
   "scripts": {
     "pretest": "eslint .",
     "test": "jest",
