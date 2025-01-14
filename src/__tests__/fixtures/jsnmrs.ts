@@ -1,4 +1,4 @@
-module.exports = {
+export default {
   serviceName: "accessibility-scan-action",
   axeVersion: "4.5.2",
   userAgent:

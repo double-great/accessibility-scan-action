@@ -1,4 +1,6 @@
-export default {
+import type { Config } from "jest";
+
+const config: Config = {
   clearMocks: true,
   transform: {
     "^.+\\.(tsx?)$": "ts-jest",
@@ -13,3 +15,5 @@ export default {
     "./sections.js": "<rootDir>/src/summary/sections.ts",
   },
 };
+
+export default config;
