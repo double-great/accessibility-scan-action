@@ -64,7 +64,7 @@ jobs:
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
-              body: "${{ steps.scan.outputs['summary-report'] }}"
+              body: `${{ steps.scan.outputs['summary-report'] }}`
             })
 ```
 
