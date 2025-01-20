@@ -28,3 +28,7 @@ inputs:
   snapshot:
     default: false
     description: "Take a screenshot of each page scanned."
+
+outputs:
+  summary-report:
+    description: The summary report of the scan.
