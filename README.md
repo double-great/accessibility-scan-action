@@ -126,5 +126,5 @@ jobs:
 
 ## Action outputs
 
-- `summary-report`: The summary report of the scan.
+- `summary-report`: The summary report of the scan in markdown format.
 <!-- END GENERATED DOCUMENTATION -->
