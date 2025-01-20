@@ -16,7 +16,7 @@ import pkg from "accessibility-insights-scan";
 const { CrawlerParametersBuilder, AICombinedReportDataConverter, AICrawler, BaselineFileUpdater, BaselineOptionsBuilder, } = pkg;
 import { AxeInfo } from "./axe-info.js";
 import { ConsolidatedReportGenerator } from "./report.js";
-import { setFailed, getInput, info, summary, getBooleanInput, } from "@actions/core";
+import { setFailed, getInput, info, summary, getBooleanInput, setOutput, } from "@actions/core";
 import { markdownSummary } from "./summary/index.js";
 let Scanner = class Scanner {
     crawler;
@@ -82,6 +82,7 @@ let Scanner = class Scanner {
             }
             const reportMarkdown = markdownSummary(combinedReportParameters, combinedScanResult.baselineEvaluation);
             await summary.addRaw(reportMarkdown).write();
+            setOutput("summary-report", reportMarkdown);
             return Promise.resolve(this.scanSucceeded);
         }
         catch (error) {

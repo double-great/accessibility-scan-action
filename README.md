@@ -20,7 +20,9 @@ name: Accessibility scan
 
 on:
   workflow_dispatch:
-  push:
+  pull_request:
+    branches:
+      - main
 
 jobs:
   scan-action:
@@ -36,19 +38,34 @@ jobs:
           node-version: 20
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.3.0
+        id: scan
+        uses: double-great/accessibility-scan-action@v0.4.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           # Optional:
           baselineFile: ${{ github.workspace }}/samples/site.baseline
 
+      # Optional: upload the report as an artifact
       - name: Upload report as artifact
         uses: actions/upload-artifact@v4
         if: success() || failure()
         with:
           name: "Accessibility report"
           path: ${{ github.workspace }}/_accessibility-reports/index.html
+
+      # Optional: post a comment on the pull request with the summary report
+      - uses: actions/github-script@v3
+        if: github.event_name == 'pull_request'
+        with:
+          github-token: ${{secrets.GITHUB_TOKEN}}
+          script: |
+            github.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body: `${{ steps.scan.outputs['summary-report'] }}`
+            })
 ```
 
 ### Additional example workflows
@@ -75,7 +92,7 @@ jobs:
           node-version: 20
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.3.0
+        uses: double-great/accessibility-scan-action@v0.4.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
@@ -105,4 +122,9 @@ jobs:
 - `inputUrls`: Additional URLs to scan, seperated by a comma.
 
 - `snapshot`: Take a screenshot of each page scanned.
+
+
+## Action outputs
+
+- `summary-report`: The summary report of the scan in markdown format.
 <!-- END GENERATED DOCUMENTATION -->

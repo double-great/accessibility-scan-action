@@ -20,6 +20,7 @@ import {
   info,
   summary,
   getBooleanInput,
+  setOutput,
 } from "@actions/core";
 import { markdownSummary } from "./summary/index.js";
 
@@ -118,6 +119,7 @@ export class Scanner {
       );
 
       await summary.addRaw(reportMarkdown).write();
+      setOutput("summary-report", reportMarkdown);
 
       return Promise.resolve(this.scanSucceeded);
     } catch (error) {
