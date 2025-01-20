@@ -31,4 +31,4 @@ inputs:
 
 outputs:
   summary-report:
-    description: The summary report of the scan.
+    description: The summary report of the scan in markdown format.
