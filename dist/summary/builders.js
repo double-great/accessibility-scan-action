@@ -95,9 +95,9 @@ export const failureDetailsBaseline = (combinedReportResult, baselineInfo) => {
     }
     return baselineHasFailures(baselineInfo.baselineEvaluation)
         ? [
-            `- - No failures were detected by automatic scanning except those which exist in the baseline.`,
+            `- No failures were detected by automatic scanning except those which exist in the baseline.`,
         ]
-        : [`- - No failures were detected by automatic scanning.`];
+        : [`- No failures were detected by automatic scanning.`];
 };
 export const getTotalFailureInstancesFromResults = ({ results, }) => {
     return results.resultsByRule.failed.reduce((a, b) => a + b.failed.reduce((c, d) => c + d.urls.length, 0), 0);
