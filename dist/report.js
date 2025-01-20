@@ -10,7 +10,7 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 var __param = (this && this.__param) || function (paramIndex, decorator) {
     return function (target, key) { decorator(target, key, paramIndex); }
 };
-import { getInput, setOutput } from "@actions/core";
+import { getInput } from "@actions/core";
 import { inject, injectable } from "inversify";
 import { writeFileSync, existsSync, mkdirSync } from "fs";
 export const iocTypes = {
@@ -32,7 +32,6 @@ let ConsolidatedReportGenerator = class ConsolidatedReportGenerator {
         }
         const reportFileName = `${outDirectory}/index.html`;
         this.saveHtmlReport(reportFileName, htmlReportContent);
-        setOutput("summary-report", htmlReportContent);
         return reportFileName;
     }
     saveHtmlReport(fileName, content) {

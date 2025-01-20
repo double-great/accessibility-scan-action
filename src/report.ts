@@ -1,4 +1,4 @@
-import { getInput, setOutput } from "@actions/core";
+import { getInput } from "@actions/core";
 import {
   ReporterFactory,
   CombinedReportParameters,
@@ -31,8 +31,6 @@ export class ConsolidatedReportGenerator {
     const reportFileName = `${outDirectory}/index.html`;
 
     this.saveHtmlReport(reportFileName, htmlReportContent);
-
-    setOutput("summary-report", htmlReportContent);
 
     return reportFileName;
   }
