@@ -171,9 +171,9 @@ export const failureDetailsBaseline = (
   }
   return baselineHasFailures(baselineInfo.baselineEvaluation)
     ? [
-        `- No failures were detected by automatic scanning except those which exist in the baseline.`,
+        `No failures were detected by automatic scanning except those which exist in the baseline.\n`,
       ]
-    : [`- No failures were detected by automatic scanning.`];
+    : [`No failures were detected by automatic scanning.\n`];
 };
 
 export const getTotalFailureInstancesFromResults = ({
