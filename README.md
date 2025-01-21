@@ -55,12 +55,12 @@ jobs:
           path: ${{ github.workspace }}/_accessibility-reports/index.html
 
       # Optional: post a comment on the pull request with the summary report
-      - uses: actions/github-script@v3
+      - uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
           script: |
-            github.issues.createComment({
+            github.rest.issues.createComment({
               issue_number: context.issue.number,
               owner: context.repo.owner,
               repo: context.repo.repo,
