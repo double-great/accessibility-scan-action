@@ -39,7 +39,7 @@ jobs:
 
       - name: Scan site
         id: scan
-        uses: double-great/accessibility-scan-action@v0.4.0
+        uses: double-great/accessibility-scan-action@v0.5.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
@@ -92,7 +92,7 @@ jobs:
           node-version: 20
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.4.0
+        uses: double-great/accessibility-scan-action@v0.5.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
