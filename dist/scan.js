@@ -14,23 +14,21 @@ var __param = (this && this.__param) || function (paramIndex, decorator) {
 import { inject, injectable } from "inversify";
 import pkg from "accessibility-insights-scan";
 const { CrawlerParametersBuilder, AICombinedReportDataConverter, AICrawler, BaselineFileUpdater, BaselineOptionsBuilder, } = pkg;
-import { AxeInfo } from "./axe-info.js";
+import axe from "axe-core";
 import { ConsolidatedReportGenerator } from "./report.js";
 import { setFailed, getInput, info, summary, getBooleanInput, setOutput, } from "@actions/core";
 import { markdownSummary } from "./summary/index.js";
 let Scanner = class Scanner {
     crawler;
     crawlerParametersBuilder;
-    axeInfo;
     combinedReportDataConverter;
     reportGenerator;
     baselineOptionsBuilder;
     baselineFileUpdater;
     scanSucceeded = true;
-    constructor(crawler, crawlerParametersBuilder, axeInfo, combinedReportDataConverter, reportGenerator, baselineOptionsBuilder, baselineFileUpdater) {
+    constructor(crawler, crawlerParametersBuilder, combinedReportDataConverter, reportGenerator, baselineOptionsBuilder, baselineFileUpdater) {
         this.crawler = crawler;
         this.crawlerParametersBuilder = crawlerParametersBuilder;
-        this.axeInfo = axeInfo;
         this.combinedReportDataConverter = combinedReportDataConverter;
         this.reportGenerator = reportGenerator;
         this.baselineOptionsBuilder = baselineOptionsBuilder;
@@ -101,7 +99,7 @@ let Scanner = class Scanner {
             baseUrl: combinedScanResult.scanMetadata.baseUrl ?? "n/a",
             basePageTitle: combinedScanResult.scanMetadata.basePageTitle,
             scanEngineName: "accessibility-scan-action",
-            axeCoreVersion: this.axeInfo.version,
+            axeCoreVersion: axe.version,
             browserUserAgent: combinedScanResult.scanMetadata.userAgent,
             urlCount: combinedScanResult.urlCount,
             scanStarted,
@@ -118,14 +116,12 @@ Scanner = __decorate([
     injectable(),
     __param(0, inject(AICrawler)),
     __param(1, inject(CrawlerParametersBuilder)),
-    __param(2, inject(AxeInfo)),
-    __param(3, inject(AICombinedReportDataConverter)),
-    __param(4, inject(ConsolidatedReportGenerator)),
-    __param(5, inject(BaselineOptionsBuilder)),
-    __param(6, inject(BaselineFileUpdater)),
+    __param(2, inject(AICombinedReportDataConverter)),
+    __param(3, inject(ConsolidatedReportGenerator)),
+    __param(4, inject(BaselineOptionsBuilder)),
+    __param(5, inject(BaselineFileUpdater)),
     __metadata("design:paramtypes", [AICrawler,
         CrawlerParametersBuilder,
-        AxeInfo,
         AICombinedReportDataConverter,
         ConsolidatedReportGenerator,
         BaselineOptionsBuilder,
