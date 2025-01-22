@@ -12,7 +12,7 @@ const {
   BaselineOptionsBuilder,
 } = pkg;
 import { CombinedReportParameters } from "accessibility-insights-report";
-import { AxeInfo } from "./axe-info.js";
+import axe from "axe-core";
 import { ConsolidatedReportGenerator } from "./report.js";
 import {
   setFailed,
@@ -32,7 +32,6 @@ export class Scanner {
     @inject(AICrawler) private readonly crawler: AICrawler,
     @inject(CrawlerParametersBuilder)
     private readonly crawlerParametersBuilder: CrawlerParametersBuilder,
-    @inject(AxeInfo) private readonly axeInfo: AxeInfo,
     @inject(AICombinedReportDataConverter)
     private readonly combinedReportDataConverter: AICombinedReportDataConverter,
     @inject(ConsolidatedReportGenerator)
@@ -144,7 +143,7 @@ export class Scanner {
       baseUrl: combinedScanResult.scanMetadata.baseUrl ?? "n/a",
       basePageTitle: combinedScanResult.scanMetadata.basePageTitle,
       scanEngineName: "accessibility-scan-action",
-      axeCoreVersion: this.axeInfo.version,
+      axeCoreVersion: axe.version,
       browserUserAgent: combinedScanResult.scanMetadata.userAgent,
       urlCount: combinedScanResult.urlCount,
       scanStarted,
