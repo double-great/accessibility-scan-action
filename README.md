@@ -58,7 +58,7 @@ jobs:
           path: ${{ github.workspace }}/_accessibility-reports/index.html
 
       # Optional: post a comment on the pull request with the summary report
-      - name: Post comment
+      - name: Post report as comment on pull request
         uses: actions/github-script@v7
         if: github.event_name == 'pull_request'
         with:
