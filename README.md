@@ -36,7 +36,7 @@ jobs:
         uses: actions/checkout@v5
 
       # This action requires Node 20
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
 
@@ -91,7 +91,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v5
 
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@v6
         with:
           node-version: 20
 
