@@ -51,7 +51,7 @@ jobs:
 
       # Optional: upload the report as an artifact
       - name: Upload report as artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: success() || failure()
         with:
           name: "Accessibility report"
@@ -102,7 +102,7 @@ jobs:
           snapshot: true
 
       - name: Upload report and snapshots as artifact
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         if: success() || failure()
         with:
           name: "Accessibility report with snapshots"
