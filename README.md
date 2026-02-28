@@ -119,7 +119,7 @@ jobs:
 
 - `maxUrls`: The number of URLs to scan. Default: `100`.
 
-- `baselineFile`: File path to baseline file. When provided, the action compares scan results against this file and fails if they don't match. See [Updating the baseline](#updating-the-baseline) for details.
+- `baselineFile`: File path to baseline file.
 
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
 
@@ -127,21 +127,6 @@ jobs:
 
 - `snapshot`: Take a screenshot of each page scanned.
 
-
-## Updating the baseline
-
-When you use the `baselineFile` option, the action compares scan results against your baseline file and fails if they don't match. This happens when the scanned page changes — violations may be added or fixed.
-
-When the baseline is out of date, the action saves an updated baseline file to the output directory (default: `_accessibility-reports/`). You can update your tracked baseline locally by running the underlying `ai-scan` CLI with the `--updateBaseline` flag:
-
-```bash
-npx ai-scan --crawl \
-  --url "https://your-site.com/page" \
-  --baselineFile path/to/your.baseline \
-  --updateBaseline
-```
-
-This overwrites the baseline file in-place with the latest scan results. Review the changes with `git diff`, then commit the updated file.
 
 ## Action outputs
 
