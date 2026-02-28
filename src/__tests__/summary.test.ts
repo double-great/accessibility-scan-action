@@ -1,7 +1,16 @@
-import * as core from "@actions/core";
-import { markdownSummary } from "../summary/index";
+import { jest, describe, test, expect, beforeEach, afterEach } from "@jest/globals";
 import jsn from "./fixtures/jsnmrs";
 import wash from "./fixtures/wash";
+
+const mockGetInput = jest.fn<(name: string) => string>();
+const mockGetBooleanInput = jest.fn<() => boolean>().mockReturnValue(false);
+
+jest.unstable_mockModule("@actions/core", () => ({
+  getInput: mockGetInput,
+  getBooleanInput: mockGetBooleanInput,
+}));
+
+const { markdownSummary } = await import("../summary/index");
 
 const defaultOptions: {
   [key: string]: string;
@@ -10,13 +19,9 @@ const defaultOptions: {
   outDir: "_accessibility-reports",
 };
 
-jest.spyOn(core, "getBooleanInput").mockImplementation(() => false);
-
 describe("markdownSummary", () => {
   beforeEach(() => {
-    jest
-      .spyOn(core, "getInput")
-      .mockImplementation((v) => defaultOptions[v] || undefined);
+    mockGetInput.mockImplementation((v) => defaultOptions[v] || undefined);
   });
 
   afterEach(() => {
