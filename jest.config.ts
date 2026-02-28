@@ -2,8 +2,9 @@ import type { Config } from "jest";
 
 const config: Config = {
   clearMocks: true,
+  extensionsToTreatAsEsm: [".ts"],
   transform: {
-    "^.+\\.(tsx?)$": "ts-jest",
+    "^.+\\.tsx?$": ["ts-jest", { useESM: true }],
   },
   testPathIgnorePatterns: [
     "<rootDir>/dist/",
