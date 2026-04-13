@@ -59,7 +59,7 @@ jobs:
 
       # Optional: post a comment on the pull request with the summary report
       - name: Post report as comment on pull request
-        uses: actions/github-script@v8
+        uses: actions/github-script@v9
         if: github.event_name == 'pull_request'
         with:
           github-token: ${{secrets.GITHUB_TOKEN}}
