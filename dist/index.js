@@ -4,9 +4,13 @@ import { homedir, platform } from "os";
 import { join } from "path";
 const cwd = new URL(".", import.meta.url).pathname;
 console.log("Installing dependencies...");
+// Skip Puppeteer's postinstall browser download. It fails outright when the
+// restored browser cache is incomplete, and ensureBrowser() handles the browser
+// instead (system browser if present, otherwise an explicit download).
 execSync("npm ci --omit=dev", {
     stdio: "inherit",
     cwd,
+    env: { ...process.env, PUPPETEER_SKIP_DOWNLOAD: "true" },
 });
 ensureBrowser();
 console.log("Dependencies installed.");
