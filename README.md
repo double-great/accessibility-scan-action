@@ -49,7 +49,7 @@ jobs:
 
       - name: Scan site
         id: scan
-        uses: double-great/accessibility-scan-action@v0.5.1
+        uses: double-great/accessibility-scan-action@v0.6.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
@@ -110,7 +110,7 @@ jobs:
           key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.5.1
+        uses: double-great/accessibility-scan-action@v0.6.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
@@ -137,7 +137,7 @@ jobs:
 
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
 
-- `inputUrls`: Additional URLs to scan, seperated by a comma.
+- `inputUrls`: Additional URLs to scan, separated by a comma.
 
 - `snapshot`: Take a screenshot of each page scanned.
 
