@@ -11,21 +11,24 @@
   },
   "author": "@double-great",
   "license": "MIT",
+  "engines": {
+    "node": ">=24"
+  },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "eslint": "^10.0.3",
-    "jest": "^30.3.0",
-    "ts-jest": "^29.4.6",
+    "eslint": "^10.5.0",
+    "jest": "^30.4.2",
+    "ts-jest": "^29.4.11",
     "ts-node": "^10.9.2",
-    "typescript": "^5.9.3",
-    "typescript-eslint": "^8.57.0"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.61.1"
   },
   "dependencies": {
-    "@actions/core": "^3.0.0",
-    "@actions/github": "^9.0.0",
-    "accessibility-insights-report": "^7.3.0",
-    "accessibility-insights-scan": "^3.2.0",
+    "@actions/core": "^3.0.1",
+    "@actions/github": "^9.1.1",
+    "accessibility-insights-report": "^7.7.0",
+    "accessibility-insights-scan": "^3.3.0",
     "inversify": "^6.2.1"
   }
 }

@@ -33,12 +33,12 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
-      # This action requires Node 20
+      # This action requires Node 24
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Scan site
         id: scan
@@ -89,11 +89,11 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
 
       - name: Scan site
         uses: double-great/accessibility-scan-action@v0.5.1
