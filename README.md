@@ -146,3 +146,22 @@ jobs:
 
 - `summary-report`: The summary report of the scan in markdown format.
 <!-- END GENERATED DOCUMENTATION -->
+
+## Troubleshooting
+
+### `BrowserLaunchError`: browser folder exists but the executable is missing
+
+The action downloads a Chrome build at runtime. If you cache `~/.cache/puppeteer` (as the examples
+above do) and a run is interrupted mid-download, the cache can hold an incomplete browser that later
+runs restore but cannot launch.
+
+The action detects this, clears the cache, and re-downloads automatically, so scans still succeed.
+But a cached key is not overwritten on a hit, so the corrupt cache lingers and every run re-downloads
+Chrome. To restore the cache's benefit, delete the corrupt cache once:
+
+```bash
+gh cache delete Linux-puppeteer # or macOS-puppeteer
+```
+
+You can also remove it from the repository's **Actions → Caches** page. The next run saves a fresh,
+complete cache.
