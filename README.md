@@ -40,6 +40,13 @@ jobs:
         with:
           node-version: 24
 
+      # Optional: cache the browser the action downloads to speed up repeat runs
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer
+
       - name: Scan site
         id: scan
         uses: double-great/accessibility-scan-action@v0.5.1
@@ -94,6 +101,13 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: 24
+
+      # Optional: cache the browser the action downloads to speed up repeat runs
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
         uses: double-great/accessibility-scan-action@v0.5.1
