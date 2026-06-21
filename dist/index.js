@@ -1,5 +1,5 @@
 import { execSync } from "child_process";
-import { rmSync } from "fs";
+import { existsSync, rmSync } from "fs";
 import { homedir } from "os";
 import { join } from "path";
 const cwd = new URL(".", import.meta.url).pathname;
@@ -8,27 +8,30 @@ execSync("npm ci --omit=dev", {
     stdio: "inherit",
     cwd,
 });
-// Puppeteer's postinstall does not download a browser, so install it explicitly.
-console.log("Installing browser...");
-const installBrowser = () => execSync("npx puppeteer browsers install chrome", {
-    stdio: "inherit",
-    cwd,
-});
-try {
-    installBrowser();
+// Puppeteer's postinstall does not download a browser, so make sure one is
+// present before scanning. Reuse a cached browser when it is complete.
+const { default: puppeteer } = await import("puppeteer");
+const executablePath = puppeteer.executablePath();
+if (existsSync(executablePath)) {
+    console.log(`Browser already installed at ${executablePath}`);
 }
-catch {
-    // A restored cache can leave an incomplete browser folder, which makes the
-    // installer fail instead of repairing it. Clear the cache and try once more.
-    console.log("Browser install failed; clearing cache and retrying...");
+else {
+    console.log("Installing browser...");
+    // A partially-downloaded browser folder makes the installer fail instead of
+    // repairing it, so clear the cache before installing.
     rmSync(join(homedir(), ".cache", "puppeteer"), {
         recursive: true,
         force: true,
     });
-    installBrowser();
+    execSync("npx puppeteer browsers install chrome", {
+        stdio: "inherit",
+        cwd,
+    });
+    if (!existsSync(executablePath)) {
+        throw new Error(`Browser was not installed at ${executablePath}`);
+    }
 }
 console.log("Dependencies installed.");
 console.log("Running action...");
-import("./action.js").then(async ({ action }) => {
-    await action();
-});
+const { action } = await import("./action.js");
+await action();
