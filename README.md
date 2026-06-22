@@ -33,7 +33,7 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       # This action requires Node 20
       - uses: actions/setup-node@v6
@@ -89,7 +89,7 @@ jobs:
     name: Scan for accessibility issues
     steps:
       - name: Checkout
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - uses: actions/setup-node@v6
         with:
