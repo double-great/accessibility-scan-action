@@ -3,7 +3,7 @@ author: "@double-great"
 description: Scan a website for accessibility issues using axe-core rules engine and Accessibility Insights.
 
 runs:
-  using: node20
+  using: node24
   main: dist/index.js
 
 inputs:
@@ -23,7 +23,7 @@ inputs:
     default: "_accessibility-reports"
 
   inputUrls:
-    description: Additional URLs to scan, seperated by a comma.
+    description: Additional URLs to scan, separated by a comma.
 
   snapshot:
     default: false

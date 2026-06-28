@@ -35,14 +35,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      # This action requires Node 20
+      # This action requires Node 24
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
+
+      # Optional: cache the browser the action downloads to speed up repeat runs
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
         id: scan
-        uses: double-great/accessibility-scan-action@v0.5.1
+        uses: double-great/accessibility-scan-action@v0.6.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
@@ -93,10 +100,17 @@ jobs:
 
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
+
+      # Optional: cache the browser the action downloads to speed up repeat runs
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.5.1
+        uses: double-great/accessibility-scan-action@v0.6.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
@@ -123,7 +137,7 @@ jobs:
 
 - `outDir`: The output directory to save the accessibility report. Default: `_accessibility-reports`.
 
-- `inputUrls`: Additional URLs to scan, seperated by a comma.
+- `inputUrls`: Additional URLs to scan, separated by a comma.
 
 - `snapshot`: Take a screenshot of each page scanned.
 
@@ -132,3 +146,22 @@ jobs:
 
 - `summary-report`: The summary report of the scan in markdown format.
 <!-- END GENERATED DOCUMENTATION -->
+
+## Troubleshooting
+
+### `BrowserLaunchError`: browser folder exists but the executable is missing
+
+The action downloads a Chrome build at runtime. If you cache `~/.cache/puppeteer` (as the examples
+above do) and a run is interrupted mid-download, the cache can hold an incomplete browser that later
+runs restore but cannot launch.
+
+The action detects this, clears the cache, and re-downloads automatically, so scans still succeed.
+But a cached key is not overwritten on a hit, so the corrupt cache lingers and every run re-downloads
+Chrome. To restore the cache's benefit, delete the corrupt cache once:
+
+```bash
+gh cache delete Linux-puppeteer # or macOS-puppeteer
+```
+
+You can also remove it from the repository's **Actions → Caches** page. The next run saves a fresh,
+complete cache.

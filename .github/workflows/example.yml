@@ -17,10 +17,17 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v7
 
-      # This action requires Node 20
+      # This action requires Node 24
       - uses: actions/setup-node@v6
         with:
-          node-version: 20
+          node-version: 24
+
+      # Optional: cache the browser the action downloads to speed up repeat runs
+      - name: Cache Puppeteer browser
+        uses: actions/cache@v5
+        with:
+          path: ~/.cache/puppeteer
+          key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
         id: scan
