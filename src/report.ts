@@ -1,5 +1,5 @@
 import { getInput } from "@actions/core";
-import {
+import type {
   ReporterFactory,
   CombinedReportParameters,
 } from "accessibility-insights-report";

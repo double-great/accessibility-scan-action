@@ -43,9 +43,9 @@ export class Scanner {
   ) {}
 
   private async invokeScan(): Promise<boolean> {
-    let scanArguments: ScanArguments;
+    let scanArguments: ScanArguments | undefined;
     try {
-      const baselineFile = getInput("baselineFile") || null;
+      const baselineFile = getInput("baselineFile") || undefined;
       const inputUrls = getInput("inputUrls")
         ? getInput("inputUrls").split(",")
         : [];
@@ -88,7 +88,7 @@ export class Scanner {
         combinedScanResult.baselineEvaluation
       );
 
-      if (baselineFile !== null) {
+      if (baselineFile !== undefined) {
         if (
           combinedScanResult.baselineEvaluation?.suggestedBaselineUpdate &&
           inputUrls.length === 0
@@ -122,7 +122,7 @@ export class Scanner {
 
       return Promise.resolve(this.scanSucceeded);
     } catch (error) {
-      setFailed(error);
+      setFailed(error instanceof Error ? error : String(error));
     } finally {
       info(`Accessibility scanning of URL ${scanArguments?.url} completed`);
     }
@@ -139,16 +139,21 @@ export class Scanner {
     scanStarted: Date,
     scanEnded: Date
   ): CombinedReportParameters {
+    const { scanMetadata } = combinedScanResult;
+    if (!scanMetadata) {
+      throw new Error("Scan metadata is missing from the combined scan result.");
+    }
+
     const scanResultData = {
-      baseUrl: combinedScanResult.scanMetadata.baseUrl ?? "n/a",
-      basePageTitle: combinedScanResult.scanMetadata.basePageTitle,
+      baseUrl: scanMetadata.baseUrl ?? "n/a",
+      basePageTitle: scanMetadata.basePageTitle,
       scanEngineName: "accessibility-scan-action",
       axeCoreVersion: axe.version,
-      browserUserAgent: combinedScanResult.scanMetadata.userAgent,
+      browserUserAgent: scanMetadata.userAgent,
       urlCount: combinedScanResult.urlCount,
       scanStarted,
       scanEnded,
-      browserResolution: combinedScanResult.scanMetadata.browserResolution,
+      browserResolution: scanMetadata.browserResolution,
     };
 
     return this.combinedReportDataConverter.convertCrawlingResults(
