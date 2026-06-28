@@ -35,7 +35,7 @@ export function sectionSummary(
 ) {
   const {
     results: {
-      resultsByRule: { passed, notApplicable, failed },
+      resultsByRule: { passed = [], notApplicable = [], failed },
       urlResults: { passedUrls, unscannableUrls, failedUrls },
     },
   } = combinedReportResult;
@@ -75,10 +75,10 @@ ${failedRulesList.join("\n")}`;
 
 export function sectionBaseline(
   baselinedEnabled: boolean,
-  baselineInfo: BaselineInfo,
+  baselineInfo: BaselineInfo | undefined,
   combinedReportResult: CombinedReportParameters
 ) {
-  if (!baselinedEnabled) return "";
+  if (!baselinedEnabled || !baselineInfo) return "";
   const content = [
     ...fixedFailureDetails(baselineInfo),
     ...failureDetailsBaseline(combinedReportResult, baselineInfo),

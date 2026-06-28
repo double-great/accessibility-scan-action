@@ -7,7 +7,7 @@ export function sectionHeading(failed, baselinedEnabled, combinedReportResult) {
 ${downloadArtifactsWithLink(combinedReportResult)}`;
 }
 export function sectionSummary(combinedReportResult, baselinedEnabled) {
-    const { results: { resultsByRule: { passed, notApplicable, failed }, urlResults: { passedUrls, unscannableUrls, failedUrls }, }, } = combinedReportResult;
+    const { results: { resultsByRule: { passed = [], notApplicable = [], failed }, urlResults: { passedUrls, unscannableUrls, failedUrls }, }, } = combinedReportResult;
     return `## Scan summary
 
 ${urlsListItem(passedUrls, unscannableUrls, failedUrls, baselinedEnabled)}
@@ -23,7 +23,7 @@ export function sectionFailureSummary({ results: { resultsByRule: { failed }, },
 ${failedRulesList.join("\n")}`;
 }
 export function sectionBaseline(baselinedEnabled, baselineInfo, combinedReportResult) {
-    if (!baselinedEnabled)
+    if (!baselinedEnabled || !baselineInfo)
         return "";
     const content = [
         ...fixedFailureDetails(baselineInfo),
