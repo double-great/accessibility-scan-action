@@ -49,7 +49,7 @@ jobs:
 
       - name: Scan site
         id: scan
-        uses: double-great/accessibility-scan-action@v0.6.0
+        uses: double-great/accessibility-scan-action@v0.7.0
         with:
           # Required:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
@@ -110,7 +110,7 @@ jobs:
           key: ${{ runner.os }}-puppeteer
 
       - name: Scan site
-        uses: double-great/accessibility-scan-action@v0.6.0
+        uses: double-great/accessibility-scan-action@v0.7.0
         with:
           url: "https://www.washington.edu/accesscomputing/AU/before.html"
           snapshot: true
