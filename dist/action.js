@@ -1,5 +1,7 @@
 import "reflect-metadata";
-import * as inversify from "inversify";
+import { createRequire } from "node:module";
+const require = createRequire(import.meta.url);
+const inversify = require("inversify");
 import { Scanner } from "./scan.js";
 import scanPkg from "accessibility-insights-scan";
 const { setupCliContainer } = scanPkg;
@@ -21,7 +23,7 @@ export async function action() {
         await scanner.scan();
     }
     catch (error) {
-        setFailed(error);
+        setFailed(error instanceof Error ? error : String(error));
         return;
     }
 }

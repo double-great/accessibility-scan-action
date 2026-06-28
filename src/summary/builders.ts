@@ -62,7 +62,7 @@ export function baselineDetails(baselineInfo: BaselineInfo): string[] {
 }
 
 export function shouldUpdateBaselineFile(
-  baselineEvaluation: BaselineEvaluation
+  baselineEvaluation?: BaselineEvaluation
 ): boolean {
   return baselineEvaluation && baselineEvaluation.suggestedBaselineUpdate
     ? true
@@ -122,6 +122,10 @@ export const failedRuleListItem = (
 export function fixedFailureDetails({
   baselineEvaluation,
 }: BaselineInfo): string[] {
+  if (!baselineEvaluation) {
+    return [];
+  }
+
   if (!hasFixedFailureResults(baselineEvaluation)) {
     return [];
   }
@@ -180,14 +184,14 @@ export const getTotalFailureInstancesFromResults = ({
   results,
 }: CombinedReportParameters): number => {
   return results.resultsByRule.failed.reduce(
-    (a, b) => a + b.failed.reduce((c, d) => c + d.urls.length, 0),
+    (a, b) => a + b.failed.reduce((c, d) => c + (d.urls?.length ?? 0), 0),
     0
   );
 };
 
 export const getFailureInstances = (
   combinedReportResult: CombinedReportParameters,
-  baselineEvaluation: BaselineEvaluation
+  baselineEvaluation?: BaselineEvaluation
 ): number => {
   if (baselineEvaluation) {
     return baselineEvaluation.totalNewViolations;
@@ -198,7 +202,7 @@ export const getFailureInstances = (
 
 export const getFailedRulesList = (
   combinedReportResult: CombinedReportParameters,
-  baselineEvaluation: BaselineEvaluation
+  baselineEvaluation?: BaselineEvaluation
 ): string[] => {
   if (baselineEvaluation) {
     return getNewFailuresList(combinedReportResult, baselineEvaluation);
@@ -229,7 +233,7 @@ export const getFailedRulesListWithNoBaseline = ({
   results,
 }: CombinedReportParameters): string[] => {
   return results.resultsByRule.failed.map(({ failed }) => {
-    const failureCount = failed.reduce((a, b) => a + b.urls.length, 0);
+    const failureCount = failed.reduce((a, b) => a + (b.urls?.length ?? 0), 0);
     const { ruleId, description } = failed[0].rule;
     return [failedRuleListItemBaseline(failureCount, ruleId, description)].join(
       ""
@@ -244,6 +248,10 @@ export const getRuleDescription = (
   const matchingFailuresGroup = results.resultsByRule.failed.find(
     (failuresGroup) => failuresGroup.failed[0].rule.ruleId === ruleId
   );
+
+  if (!matchingFailuresGroup) {
+    return "";
+  }
 
   return matchingFailuresGroup.failed[0].rule.description;
 };
@@ -275,17 +283,14 @@ export function downloadArtifactsWithLink(
 }
 
 export const baselineHasFailures = (
-  baselineEvaluation: BaselineEvaluation
+  baselineEvaluation?: BaselineEvaluation
 ): boolean => {
-  return (
-    baselineEvaluation?.totalBaselineViolations &&
-    baselineEvaluation?.totalBaselineViolations > 0
-  );
+  return (baselineEvaluation?.totalBaselineViolations ?? 0) > 0;
 };
 
 export const hasFailures = (
   combinedReportResult: CombinedReportParameters,
-  baselineEvaluation: BaselineEvaluation
+  baselineEvaluation?: BaselineEvaluation
 ): boolean => {
   if (baselineEvaluation !== undefined) {
     return baselineEvaluation.totalNewViolations > 0;

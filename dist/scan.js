@@ -37,7 +37,7 @@ let Scanner = class Scanner {
     async invokeScan() {
         let scanArguments;
         try {
-            const baselineFile = getInput("baselineFile") || null;
+            const baselineFile = getInput("baselineFile") || undefined;
             const inputUrls = getInput("inputUrls")
                 ? getInput("inputUrls").split(",")
                 : [];
@@ -60,7 +60,7 @@ let Scanner = class Scanner {
             const combinedReportParameters = this.getCombinedReportParameters(combinedScanResult, scanStarted, scanEnded);
             this.reportGenerator.generateReport(combinedReportParameters);
             await this.baselineFileUpdater.updateBaseline(scanArguments, combinedScanResult.baselineEvaluation);
-            if (baselineFile !== null) {
+            if (baselineFile !== undefined) {
                 if (combinedScanResult.baselineEvaluation?.suggestedBaselineUpdate &&
                     inputUrls.length === 0) {
                     setFailed("The baseline file does not match scan results.");
@@ -84,7 +84,7 @@ let Scanner = class Scanner {
             return Promise.resolve(this.scanSucceeded);
         }
         catch (error) {
-            setFailed(error);
+            setFailed(error instanceof Error ? error : String(error));
         }
         finally {
             info(`Accessibility scanning of URL ${scanArguments?.url} completed`);
@@ -95,16 +95,20 @@ let Scanner = class Scanner {
         this.scanSucceeded = false;
     }
     getCombinedReportParameters(combinedScanResult, scanStarted, scanEnded) {
+        const { scanMetadata } = combinedScanResult;
+        if (!scanMetadata) {
+            throw new Error("Scan metadata is missing from the combined scan result.");
+        }
         const scanResultData = {
-            baseUrl: combinedScanResult.scanMetadata.baseUrl ?? "n/a",
-            basePageTitle: combinedScanResult.scanMetadata.basePageTitle,
+            baseUrl: scanMetadata.baseUrl ?? "n/a",
+            basePageTitle: scanMetadata.basePageTitle,
             scanEngineName: "accessibility-scan-action",
             axeCoreVersion: axe.version,
-            browserUserAgent: combinedScanResult.scanMetadata.userAgent,
+            browserUserAgent: scanMetadata.userAgent,
             urlCount: combinedScanResult.urlCount,
             scanStarted,
             scanEnded,
-            browserResolution: combinedScanResult.scanMetadata.browserResolution,
+            browserResolution: scanMetadata.browserResolution,
         };
         return this.combinedReportDataConverter.convertCrawlingResults(combinedScanResult.combinedAxeResults, scanResultData);
     }
