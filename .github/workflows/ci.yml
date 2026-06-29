@@ -14,6 +14,9 @@ jobs:
       - uses: actions/setup-node@v6
         with:
           node-version: ${{ matrix.node }}
+      # The protobufjs override resolves to a lock tree only npm 11 reads;
+      # Node 22 ships npm 10, so pin npm 11 to match the node24 runtime.
+      - run: npm i -g npm@11
       - run: npm ci
       - run: npm test
         env:
