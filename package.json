@@ -30,5 +30,11 @@
     "accessibility-insights-report": "^7.7.0",
     "accessibility-insights-scan": "^3.3.0",
     "inversify": "^6.2.1"
+  },
+  "overrides": {
+    "applicationinsights": {
+      "protobufjs": "^8.6.0"
+    },
+    "js-yaml": "^4.2.0"
   }
 }
