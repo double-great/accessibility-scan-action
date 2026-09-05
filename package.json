@@ -17,12 +17,12 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/jest": "^30.0.0",
-    "eslint": "^10.6.0",
-    "jest": "^30.4.2",
-    "ts-jest": "^29.4.11",
+    "eslint": "^10.10.0",
+    "jest": "^30.5.1",
+    "ts-jest": "^29.4.12",
     "ts-node": "^10.9.2",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.62.0"
+    "typescript-eslint": "^8.69.0"
   },
   "dependencies": {
     "@actions/core": "^3.0.1",
@@ -36,5 +36,11 @@
       "protobufjs": "^8.6.0"
     },
     "js-yaml": "^4.2.0"
+  },
+  "allowScripts": {
+    "@parcel/watcher@2.6.0": true,
+    "leveldown@6.1.1": true,
+    "puppeteer@24.43.1": true,
+    "unrs-resolver@1.12.2": true
   }
 }
